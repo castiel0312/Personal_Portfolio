@@ -1,4 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+
+const faces = [
+  { transform: "translateZ(80px)", color: "rgba(255, 0, 0, 0.85)" },       // Red - Front
+  { transform: "rotateY(180deg) translateZ(80px)", color: "rgba(255, 165, 0, 0.85)" }, // Orange - Back
+  { transform: "rotateY(-90deg) translateZ(80px)", color: "rgba(0, 100, 255, 0.85)" }, // Blue - Left
+  { transform: "rotateY(90deg) translateZ(80px)", color: "rgba(0, 180, 0, 0.85)" },    // Green - Right
+  { transform: "rotateX(90deg) translateZ(80px)", color: "rgba(255, 255, 255, 0.9)" }, // White - Top
+  { transform: "rotateX(-90deg) translateZ(80px)", color: "rgba(255, 220, 0, 0.85)" }, // Yellow - Bottom
+];
 
 const ScrollCube = () => {
   const [rotation, setRotation] = useState({ x: 25, y: 45 });
@@ -27,66 +36,24 @@ const ScrollCube = () => {
           transition: "transform 0.1s linear",
         }}
       >
-        {/* Front */}
-        <div
-          className="absolute inset-0 rounded-lg border"
-          style={{
-            transform: "translateZ(80px)",
-            background: "linear-gradient(135deg, hsla(190, 100%, 50%, 0.12), hsla(260, 80%, 60%, 0.08))",
-            borderColor: "hsla(190, 100%, 50%, 0.25)",
-            boxShadow: "inset 0 0 30px hsla(190, 100%, 50%, 0.05)",
-          }}
-        />
-        {/* Back */}
-        <div
-          className="absolute inset-0 rounded-lg border"
-          style={{
-            transform: "rotateY(180deg) translateZ(80px)",
-            background: "linear-gradient(135deg, hsla(260, 80%, 60%, 0.12), hsla(220, 90%, 56%, 0.08))",
-            borderColor: "hsla(260, 80%, 60%, 0.25)",
-            boxShadow: "inset 0 0 30px hsla(260, 80%, 60%, 0.05)",
-          }}
-        />
-        {/* Left */}
-        <div
-          className="absolute inset-0 rounded-lg border"
-          style={{
-            transform: "rotateY(-90deg) translateZ(80px)",
-            background: "linear-gradient(135deg, hsla(220, 90%, 56%, 0.12), hsla(190, 100%, 50%, 0.08))",
-            borderColor: "hsla(220, 90%, 56%, 0.25)",
-            boxShadow: "inset 0 0 30px hsla(220, 90%, 56%, 0.05)",
-          }}
-        />
-        {/* Right */}
-        <div
-          className="absolute inset-0 rounded-lg border"
-          style={{
-            transform: "rotateY(90deg) translateZ(80px)",
-            background: "linear-gradient(135deg, hsla(190, 100%, 50%, 0.1), hsla(260, 80%, 60%, 0.1))",
-            borderColor: "hsla(190, 100%, 50%, 0.2)",
-            boxShadow: "inset 0 0 30px hsla(190, 100%, 50%, 0.05)",
-          }}
-        />
-        {/* Top */}
-        <div
-          className="absolute inset-0 rounded-lg border"
-          style={{
-            transform: "rotateX(90deg) translateZ(80px)",
-            background: "linear-gradient(135deg, hsla(260, 80%, 60%, 0.1), hsla(190, 100%, 50%, 0.1))",
-            borderColor: "hsla(260, 80%, 60%, 0.2)",
-            boxShadow: "inset 0 0 30px hsla(260, 80%, 60%, 0.05)",
-          }}
-        />
-        {/* Bottom */}
-        <div
-          className="absolute inset-0 rounded-lg border"
-          style={{
-            transform: "rotateX(-90deg) translateZ(80px)",
-            background: "linear-gradient(135deg, hsla(220, 90%, 56%, 0.1), hsla(260, 80%, 60%, 0.1))",
-            borderColor: "hsla(220, 90%, 56%, 0.2)",
-            boxShadow: "inset 0 0 30px hsla(220, 90%, 56%, 0.05)",
-          }}
-        />
+        {faces.map((face, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 rounded-md"
+            style={{
+              transform: face.transform,
+              background: face.color,
+              border: "3px solid rgba(0,0,0,0.7)",
+              boxShadow: "inset 0 0 15px rgba(0,0,0,0.2)",
+              // 3x3 grid overlay
+              backgroundImage: `
+                linear-gradient(rgba(0,0,0,0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.6) 1px, transparent 1px)
+              `,
+              backgroundSize: "33.33% 33.33%",
+            }}
+          />
+        ))}
       </div>
     </div>
   );
