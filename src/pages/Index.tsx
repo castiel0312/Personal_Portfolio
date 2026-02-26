@@ -6,11 +6,13 @@ import SkillsSection from "@/components/SkillsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
+import ScrollCube from "@/components/ScrollCube";
 
 const Index = () => {
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       <ParticleBackground />
+      <ScrollCube />
       <Navbar />
       <main className="relative z-10">
         <HeroSection />
