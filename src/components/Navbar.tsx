@@ -30,7 +30,7 @@ const Navbar = () => {
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="#" className="font-display font-bold text-lg text-foreground hover:text-primary transition-colors">
-          AC<span className="text-primary">.</span>
+          AK<span className="text-primary">.</span>
         </a>
 
         {/* Desktop */}
