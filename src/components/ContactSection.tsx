@@ -1,16 +1,42 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Github, Linkedin, Mail, Send } from "lucide-react";
+import { Github, Linkedin, Mail, Send, CheckCircle, AlertTriangle, Loader } from "lucide-react";
+
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<FormStatus>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setStatus('loading');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      setStatus('success');
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setStatus('error');
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -40,9 +66,9 @@ const ContactSection = () => {
 
             <div className="space-y-4">
               {[
-                { icon: Mail, label: "alex@example.com", href: "mailto:alex@example.com" },
-                { icon: Github, label: "github.com/alexchen", href: "#" },
-                { icon: Linkedin, label: "linkedin.com/in/alexchen", href: "#" },
+                { icon: Mail, label: "akshatkhoria@gmail.com", href: "mailto:akshatkhoria@gmail.com" },
+                { icon: Github, label: "github.com/castiel0312", href: "https://github.com/castiel0312" },
+                { icon: Linkedin, label: "linkedin.com/in/akshatkhoria", href: "https://linkedin.com/in/akshatkhoria" },
               ].map((link) => (
                 <a
                   key={link.label}
@@ -67,31 +93,52 @@ const ContactSection = () => {
           >
             <input
               type="text"
+              name="name"
               placeholder="Name"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={handleInputChange}
+              required
               className="w-full px-4 py-3 rounded-xl bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all font-sans text-sm"
             />
             <input
               type="email"
+              name="email"
               placeholder="Email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={handleInputChange}
+              required
               className="w-full px-4 py-3 rounded-xl bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all font-sans text-sm"
             />
             <textarea
+              name="message"
               placeholder="Message"
               rows={4}
               value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              onChange={handleInputChange}
+              required
               className="w-full px-4 py-3 rounded-xl bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none font-sans text-sm"
             />
-            <button
-              type="submit"
-              className="glass-card px-8 py-3 font-display font-medium text-primary hover:neon-glow transition-all duration-300 hover:scale-105 flex items-center gap-2"
-            >
-              Send Message <Send className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="glass-card px-8 py-3 font-display font-medium text-primary hover:neon-glow transition-all duration-300 hover:scale-105 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {status === 'loading' ? (
+                  <><Loader className="w-4 h-4 animate-spin" /> Sending...</>
+                ) : (
+                  <><Send className="w-4 h-4" /> Send Message</>
+                )}
+              </button>
+              
+              {status === 'success' && (
+                <p className="text-sm flex items-center gap-2 text-green-500"><CheckCircle className="w-4 h-4"/> Message sent!</p>
+              )}
+              {status === 'error' && (
+                <p className="text-sm flex items-center gap-2 text-red-500"><AlertTriangle className="w-4 h-4"/> Something went wrong.</p>
+              )}
+            </div>
+
           </motion.form>
         </div>
       </div>

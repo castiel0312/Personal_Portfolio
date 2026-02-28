@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const faces = [
   { transform: "translateZ(80px)", color: "rgba(255, 0, 0, 0.85)" },       // Red - Front
@@ -10,30 +11,46 @@ const faces = [
 ];
 
 const ScrollCube = () => {
-  const [rotation, setRotation] = useState({ x: 25, y: 45 });
+  const scrollY = useMotionValue(0);
 
   useEffect(() => {
-    const onScroll = () => {
-      const scroll = window.scrollY;
-      setRotation({
-        x: 25 + scroll * 0.08,
-        y: 45 + scroll * 0.15,
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const handleScroll = () => scrollY.set(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Set initial value
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollY]);
+
+  const springConfig = { stiffness: 200, damping: 25, restDelta: 0.001 };
+
+  // Smooth rotation
+  const rotateX = useSpring(useTransform(scrollY, (latest) => 25 + latest * 0.08), springConfig);
+  const rotateY = useSpring(useTransform(scrollY, (latest) => 45 + latest * 0.15), springConfig);
+
+  // Smooth position and opacity
+  const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 1000;
+  const scrollThreshold = screenHeight / 2;
+
+  const topValue = useTransform(scrollY, [0, scrollThreshold], [60, 33], { clamp: true });
+  const top = useSpring(topValue, springConfig);
+
+  const opacityValue = useTransform(scrollY, [0, scrollThreshold], [0.3, 1], { clamp: true });
+  const opacity = useSpring(opacityValue, springConfig);
+  
+  const topPercent = useTransform(top, (v) => `${v}%`);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1, perspective: "1200px" }}>
-      <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{
           width: 160,
           height: 160,
           transformStyle: "preserve-3d",
-          transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-          transition: "transform 0.1s linear",
+          rotateX,
+          rotateY,
+          top: topPercent,
+          opacity,
         }}
       >
         {faces.map((face, i) => (
@@ -54,7 +71,7 @@ const ScrollCube = () => {
             }}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -25,8 +25,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
         >
-          <span className="text-foreground">Alex</span>{" "}
-          <span className="gradient-text">Chen</span>
+          <span className="text-foreground">Akshat Khoria</span>
         </motion.h1>
 
         <motion.p
