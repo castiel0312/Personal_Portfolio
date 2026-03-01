@@ -5,7 +5,7 @@ import { ExternalLink, Github, X } from "lucide-react";
 const projects = [
   {
     title: "The Revival CO",
-    description: "Created TheRevivalCo.in, an online thrifting website inspired by modern e-commerce platforms. Implemented core features such as buying, selling, auctions, and donations within a single unified platform Integrated backend services including authentication, database operations, and storage. Designed end-to-end application workflows to closely simulate real-world e-commerce systems.",
+    description: "Created TheRevivalCo.in, an online thrifting website inspired by modern e-commerce platforms. Implemented core features such as buying, selling, auctions, and donations within a single unified platform. Integrated backend services including authentication, database operations, and storage. Designed end-to-end application workflows to closely simulate real-world e-commerce systems.",
     tech: ["React", "MongoDB", "SQL", "Supabase", "Vercel"],
     github: "https://github.com/therevivalco/revival-couture-circle.git",
     live: "#",
