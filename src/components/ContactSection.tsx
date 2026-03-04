@@ -11,28 +11,30 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<FormStatus>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
+
+    const-form-data = new FormData(e.currentTarget);
+    formData.append("access_key", "afcf1805-95db-4256-b6bb-c7bc06408eef");
+
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus('success');
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus('error');
       }
-      
-      setStatus('success');
-      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error("Form submission error:", error);
       setStatus('error');
-    }
+    } 
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
