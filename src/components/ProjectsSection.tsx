@@ -13,7 +13,7 @@ const projects = [
   },
   {
     title: "VaultGuard",
-    description: "Zero-knowledge proof authentication system with end-to-end encryption. Built for enterprise-grade security with minimal latency overhead.",
+    description: "Developed a web scraper that aggregates property listings from platforms like NoBroker and 99Acres to provide more housing options in one place. Implemented advanced filtering and sorting for faster property searches, used custom HTTP headers to bypass basic bot detection, and automated data extraction to keep listings updated while reducing duplicates and outdated entries. Users can search based on budget, location, and amenities.",
     tech: ["Rust", "WebAssembly", "PostgreSQL", "Redis"],
     github: "#",
     category: "Security",
