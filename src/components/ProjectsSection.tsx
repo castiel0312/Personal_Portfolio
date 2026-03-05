@@ -14,17 +14,17 @@ const projects = [
   {
     title: "Affordable Flats Data Scraper",
     description: "Developed a web scraper that aggregates property listings from platforms like NoBroker and 99Acres to provide more housing options in one place. Implemented advanced filtering and sorting for faster property searches, used custom HTTP headers to bypass basic bot detection, and automated data extraction to keep listings updated while reducing duplicates and outdated entries. Users can search based on budget, location, and amenities.",
-    tech: ["Rust", "WebAssembly", "PostgreSQL", "Redis"],
+    tech: ["Python","MYSQL","PostgreSQL"],
     github: "#",
-    category: "Security",
+    category: "Web Scraping",
   },
   {
-    title: "ScaleFlow",
-    description: "Event-driven microservices orchestrator with automatic scaling, health monitoring, and distributed tracing across cloud providers.",
-    tech: ["Go", "Kubernetes", "gRPC", "Prometheus"],
+    title: "AutoFlow Engine",
+    description: "Developed a database-backed workflow automation system that executes multi-step pipelines with automatic retries, step-level logging, and structured state management. Enabled workflows to resume automatically after failures, significantly reducing manual task tracking. Integrated external services to trigger AI calls, notifications, and automated actions, improving overall process speed and reliability in complex automation pipelines.",
+    tech: ["Python","n8n","DB For SQLite"],
     github: "#",
     live: "#",
-    category: "Backend",
+    category: "Automation Pipeline",
   },
   {
     title: "DataPulse",
