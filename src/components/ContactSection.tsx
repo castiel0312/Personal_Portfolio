@@ -79,7 +79,6 @@ const ContactSection = () => {
                 { icon: Mail, label: "akshatkhoria@gmail.com", href: "mailto:akshatkhoria@gmail.com" },
                 { icon: Github, label: "github.com/castiel0312", href: "https://github.com/castiel0312" },
                 { icon: Linkedin, label: "linkedin.com/in/akshatkhoria", href: "https://linkedin.com/in/akshatkhoria" },
-                { icon: Send, label: "Portfolio", href: "#" }
               ].map((link) => (
                 <a
                   key={link.label}
