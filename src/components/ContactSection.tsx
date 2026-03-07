@@ -79,6 +79,7 @@ const ContactSection = () => {
                 { icon: Mail, label: "akshatkhoria@gmail.com", href: "mailto:akshatkhoria@gmail.com" },
                 { icon: Github, label: "github.com/castiel0312", href: "https://github.com/castiel0312" },
                 { icon: Linkedin, label: "linkedin.com/in/akshatkhoria", href: "https://linkedin.com/in/akshatkhoria" },
+                { icon: Send, label: "Portfolio", href: "#" }
               ].map((link) => (
                 <a
                   key={link.label}
@@ -88,6 +89,7 @@ const ContactSection = () => {
                   <span className="p-2 rounded-lg bg-gray-800 group-hover:bg-blue-500/10 transition-colors">
                     <link.icon className="w-4 h-4" />
                   </span>
+
                   <span className="text-sm">{link.label}</span>
                 </a>
               ))}
@@ -145,7 +147,7 @@ const ContactSection = () => {
                 <p className="text-sm flex items-center gap-2 text-green-500"><CheckCircle className="w-4 h-4"/> Message sent!</p>
               )}
               {status === 'error' && (
-                <p className="text-sm flex items-center gap-2 text-red-500"><AlertTriangle className="w-4 h-4"/> Something went wrong.</p>
+                <p className="text-sm flex items-center gap-2 text-red-500"><AlertTriangle className="w-4 h-4" /> Something went wrong.</p>
               )}
             </div>
           </motion.form>

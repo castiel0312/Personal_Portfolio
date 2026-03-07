@@ -20,10 +20,9 @@ const projects = [
   },
   {
     title: "AutoFlow Engine",
-    description: "Developed a database-backed workflow automation system that executes multi-step pipelines with automatic retries, step-level logging, and structured state management. Enabled workflows to resume automatically after failures, significantly reducing manual task tracking. Integrated external services to trigger AI calls, notifications, and automated actions, improving overall process speed and reliability in complex automation pipelines.",
+    description: "Developed a database-backed workflow automation system that executes multi-step pipelines with automatic retries, step-level logging, and structured state management. Enabled workflows to resume automatically after failures, significantly reducing manual task tracking. Integrated external services to trigger AI API calls, notifications, and automated actions, improving overall process speed and reliability in complex automation pipelines.",
     tech: ["Python","n8n","DB For SQLite"],
-    github: "#",
-    live: "#",
+    github: "https://github.com/castiel0312/Autoflow-Engine.git",
     category: "Automation Pipeline",
   },
   {
